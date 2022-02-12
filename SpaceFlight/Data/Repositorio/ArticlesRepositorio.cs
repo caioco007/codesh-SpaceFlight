@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpaceFlight.Interface.Repositorio;
 using SpaceFlight.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace SpaceFlight.Data.Repositorio
 {
     public class ArticlesRepositorio : IArticlesRepositorio
     {
-        private readonly MongoDBContext _context;
+        private readonly AppDBContext _context;
 
-        public ArticlesRepositorio (MongoDBContext context)
+        public ArticlesRepositorio (AppDBContext context)
         {
             _context = context;
         }

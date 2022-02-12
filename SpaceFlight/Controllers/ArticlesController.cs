@@ -42,16 +42,9 @@ namespace SpaceFlight.Controllers
         {
             if (articles is null) return BadRequest("Invalid Article");
 
-            var article = await _articleService.IsExistBdAsync(articles.Title,articles.Id);
+            var articlesCreated = await _articleService.CreateAsync(articles);
 
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-            await _articleService.CreateAsync(articles);
-
-            return CreatedAtRoute("GetAllAsync", new { id = articles.Id }, articles);
+            return Ok(articlesCreated);
         }
 
         [HttpPut("{id}")]

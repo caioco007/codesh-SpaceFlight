@@ -2,15 +2,23 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
+using SpaceFlight.Crosscutting.IoC;
 using SpaceFlight.Data;
 using SpaceFlight.Data.Repositorio;
 using SpaceFlight.Interface.Repositorio;
+using SpaceFlight.Interface.Service;
+using SpaceFlight.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +38,23 @@ namespace SpaceFlight
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+
+            string mySqlConnection = Configuration.GetConnectionString("MySqlConnectionString");
+
+            services.AddDbContextPool<AppDBContext>(options =>
+                options.UseMySql(mySqlConnection,
+                    ServerVersion.AutoDetect(mySqlConnection)));
+
+            services.AddScoped<IArticlesRepositorio, ArticlesRepositorio>();
+            services.AddScoped<IArticlesService, ArticlesService>();
+
+            services.AddMvc();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpaceFlight", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
