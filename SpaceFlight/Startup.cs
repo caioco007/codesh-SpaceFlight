@@ -1,28 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Quartz;
-using Quartz.Impl;
-using Quartz.Spi;
-using SpaceFlight.Crosscutting.IoC;
 using SpaceFlight.Data;
 using SpaceFlight.Data.Repositorio;
 using SpaceFlight.Interface.Repositorio;
 using SpaceFlight.Interface.Service;
 using SpaceFlight.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceFlight
 {

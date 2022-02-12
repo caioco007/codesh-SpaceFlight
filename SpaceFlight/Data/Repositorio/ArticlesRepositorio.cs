@@ -35,12 +35,15 @@ namespace SpaceFlight.Data.Repositorio
 
         public async Task<ArticlesModel> GetByIdAsync(int id)
         {
-            var articles = _context.Articles
-                         .Include(p => p.Launches)
-                         .Include(p => p.Events)
+
+
+            return await _context.Articles
                          .FirstOrDefaultAsync(m => m.Id == id);
 
-            return await articles;
+            //var articles = _context.Articles
+            //             .FirstOrDefaultAsync(m => m.Id == id);
+
+            //return await articles;
 
         }
 
@@ -66,6 +69,7 @@ namespace SpaceFlight.Data.Repositorio
             await _context.SaveChangesAsync();
 
             return editArticle.Entity;
+
         }
 
     }
