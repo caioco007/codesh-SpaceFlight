@@ -65,7 +65,7 @@ namespace SpaceFlight.Controllers
                 return NotFound();
             }
 
-            await _articleService.GetByIdAsync(article.Id);
+            await _articleService.DeleteAsync(article.Id);
             return Ok();
         }
     }
